@@ -4,7 +4,7 @@
       <a href="#" class="logo">stx건설</a>
       <nav class="gnb">
         <ul class="depth1">
-          <li v-for="(item,index) in gnbdata" :key="index"><a :href="item.mainlink">{{item.maintxt}}</a>
+          <li v-for="(item,index) in gnbData" :key="index"><a :href="item.mainlink">{{item.maintxt}}</a>
             <ul class="depth2">
               <li v-for="(subitem,subindex) in item.subdata" :key="subindex">
                 <a :href="subitem.sublink">{{subitem.subtxt}}</a>
@@ -24,11 +24,17 @@
 
 <script>
   import $ from 'jquery';
-  import { onMounted } from 'vue';
+  import { onUpdated,computed } from 'vue';
+  import {useStore} from 'vuex'
   export default {
     setup() {
+      const store = useStore();
+      const gnbData = computed(() => store.getters.getGnbData);
+      // vuex의 store의 action을 요청한다.
+      store.dispatch('fetchGnb')
+
       // vue에서 화면에 html 등록시 실행
-      onMounted(() => {
+      onUpdated(() => {
         let header = $('.header');
         let depth1 = $('.depth1');
         let gnb = $('.gnb');
@@ -60,9 +66,11 @@
         });
 
       });
-      return {}
+
+      return {
+        gnbData
+      }
     },
-    props: ['gnbdata']
   }
 </script>
 

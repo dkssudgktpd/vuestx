@@ -5,7 +5,7 @@
         <div class="news-box">
           <h3>공지사항</h3>
           <ul class="news-list">
-            <li v-for="(item, index) in ntdata " v-bind:key="index" >
+            <li v-for="(item, index) in ntData " v-bind:key="index" >
               <a :href="item.url"><span>{{item.title}}</span></a>
             </li>
           </ul>
@@ -14,7 +14,7 @@
         <div class="news-box">
           <h3>보도자료</h3>
           <ul class="news-list">
-            <li v-for="(item,index) in nsdata" :key="index">
+            <li v-for="(item,index) in nsData" :key="index">
               <a :href="item.url"><span>{{item.title}}</span></a>
             </li>
 
@@ -25,8 +25,19 @@
 </template>
 
 <script>
+import {computed} from 'vue'
+import {useStore} from 'vuex'
 export default {
-  props:['ntdata','nsdata']
+  setup(){
+    const store = useStore();
+    const ntData = computed(()=> store.getters.getNoticeData);
+    const nsData = computed(()=> store.getters.getNewsData);
+    store.dispatch('fetchNotice')
+    store.dispatch('fetchNews')
+    return{
+      ntData,nsData
+    }
+  }
 }
 </script>
 
