@@ -11,6 +11,7 @@ const actions = {
     axios.get('/data/gnb.json')
     .then(response => {
       commit('GNB', response.data)
+      //comit('mutation 메서드 이름', 전달할 값)
 })
     .catch(err => console.log(err))
   },
@@ -22,14 +23,24 @@ const actions = {
     .catch(err => console.log(err))
   },
   fetchNews({commit}){
+    // news.json을 axios로 호출
     axios.get('/data/news.json')
     .then(response => {
+      console.log(response)
+      // mutation으로 자료를 전송 commit 필요
+      // axios는 받아온 자료를 .data에 보관
       commit('NEWS', response.data)
     })
     .catch(err => console.log(err))
   }
 };
 const mutations = {
+  // mutation => state의 값을 업데이트 하기 위한 용도
+  /*
+  메서드이름 (state, 전달할 재료){
+    store의 데이터(state) state.gnbData 업데이트
+  }
+  */ 
   GNB(state, payload){
     state.gnbData = payload
   },
