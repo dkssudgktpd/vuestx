@@ -61,7 +61,6 @@
           $(this).mouseleave(function () {
             //li의 > a를 찾는다.
             $(this).find('>a').removeClass('depth1-focus');
-            depth_1_Li.eq(1).find('>a').addClass('depth1-focus');
           });
         });
 
