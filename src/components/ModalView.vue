@@ -35,6 +35,7 @@ import {onMounted} from 'vue';
   });
   modalWrap.click(function(){
     modalWrap.stop().fadeOut(100);
+    $('html').css('overflow','auto');
   });
       })
       return {
